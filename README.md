@@ -13,7 +13,7 @@ If you have downloaded the .exe file, you can run it without installation.
 4. .png file will be displayed along with color analysis. The saved file will be in the directory you have set.
 
 ## Reference 
-Image Color Extraction with Python in 4 Steps by Boriharn K
+Image Color Extraction with Python in 4 Steps by Boriharn K <br>
 https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9370d9216e/ 
 
 ## Program's life
@@ -21,5 +21,7 @@ https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9
 Core features are implemented. The project is uploaded to the gitHub repository.
 
 ## Developer Contact
+This program was made by GooCat Studio as an utility to assist video game development. <br>
+
 JungBae Park
 teamgoocat@gmail.com
