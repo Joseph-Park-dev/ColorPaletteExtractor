@@ -82,4 +82,5 @@ def display_dev_credits():
 
 credits_btn = Button(tk,text='Developer Credits',bg='white',fg='black',command= display_dev_credits).place(relx=0.5, rely=0.5, anchor="center")
 
-tk.mainloop()
+if __name__ == "__main__":
+    tk.mainloop()
