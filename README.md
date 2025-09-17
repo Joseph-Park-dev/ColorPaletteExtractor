@@ -21,8 +21,8 @@ https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9
 Core features are implemented. The project is uploaded to the gitHub repository.
 
 ### 2025.09.17 (v.0.1.1)
-GUIs for setting values (tolerance & limit) are added. 
-GUI alignment was revised for a better look.
+GUIs for setting values (tolerance & limit) were added. <br> 
+GUI alignment was revised for a better look. <br>
 Bugs were fixed.
 
 ## Developer Contact
