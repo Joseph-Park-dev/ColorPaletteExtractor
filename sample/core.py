@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import colorchooser
+from idlelib.tooltip import Hovertip
+
 import webbrowser
 
 import extract_color as ext
@@ -22,7 +24,6 @@ background_color = (255,255,255)
 
 def browse_file(entry):
     filename = filedialog.askopenfilename(
-        initialdir="/",  # Starting directory
         title="Select an Image File",
         filetypes=(("pngs", "*.png"), ("jpg, jpeg", "*.jpg *jpeg"))
     )
@@ -35,7 +36,6 @@ def browse_file(entry):
 def browse_save_file():
     filename = filedialog.asksaveasfilename(
         defaultextension=".png",
-        initialdir="/",  # Starting directory
         title="Save Color Palette",
         filetypes=(("pngs", "*.png"), ("jpg, jpeg", "*.jpg *jpeg"))
     )
@@ -53,17 +53,48 @@ def extract_color_palette(bg_col):
     palette_file = browse_save_file()
     palette_file = str(palette_file)
     if img_path_entry.get() and palette_file:
-        ext.extract(img_path_entry.get(), palette_file, 1000, bg_col, True)
+        ext.extract(img_path_entry.get(), palette_file, background_color, tolerance_slider.get(), limit_slider.get())
 
-img_path_label = Label(tk,text='Image Path').grid(row=0, column=0)
-
+img_path_label = Label(tk,text='Image Path')
 img_path_entry = Entry(tk, width = 40)
+img_path_tip_msg = 'Image to extract colors from.'
+
+browse_file_btn = Button(tk,text='Browse...',bg='white',fg='black',command=lambda: browse_file(img_path_entry))
+Hovertip(img_path_label, img_path_tip_msg)
+Hovertip(img_path_entry, img_path_tip_msg)
+
+tolerance_label = Label(tk,text='Tolerance')
+tolerance_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
+tolerancee_tip_msg = 'Group colors to limit the output. 0 will group any color and 100 will group all colors into one.'
+Hovertip(tolerance_label, tolerancee_tip_msg)
+Hovertip(tolerance_slider, tolerancee_tip_msg)
+
+limit_label = Label(tk,text='limit')
+limit_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
+limit_tip_msg = 'The number of extracted colors presented in the output.'
+Hovertip(limit_label, limit_tip_msg)
+Hovertip(limit_slider, limit_tip_msg)
+
+color_picker_btn = Button(tk,text='Background Color',bg='white',fg='black',command=lambda: open_color_picker())
+color_picker_tip_msg = 'Background color of the palette. Blank space will be filled with this color.'
+Hovertip(color_picker_btn, color_picker_tip_msg)
+
+generate_btn = Button(tk,text='Extract Color Palette',bg='white',fg='black',command= lambda: extract_color_palette(background_color))
+reminder = Label(tk, text = 'Reminder: The transparent area will be considered as black!')
+
+img_path_label.grid(row=0, column=0,)
 img_path_entry.grid(row=0,column=1)
+browse_file_btn.grid(row=0,column=2)
 
-browse_file_btn = Button(tk,text='Browse...',bg='white',fg='black',command=lambda: browse_file(img_path_entry)).grid(row=0,column=2)
-color_picker_btn = Button(tk,text='Background Color',bg='white',fg='black',command=lambda: open_color_picker()).grid(row=1,column=2)
+tolerance_label.grid(row = 1, column = 0)
+tolerance_slider.grid(row=1, column = 1, sticky = "w")
 
-generate_btn = Button(tk,text='Extract Color Palette',bg='white',fg='black',command= lambda: extract_color_palette(background_color)).grid(row=2,column=1)
+limit_label.grid(row = 2, column = 0)
+limit_slider.grid(row=2, column = 1, sticky = "w")
+
+color_picker_btn.grid(row=2,column=1, sticky= "e")
+generate_btn.grid(row=4,column=1)
+reminder.grid(row = 3, column = 1)
 
 
 def display_dev_credits():
@@ -76,11 +107,14 @@ def display_dev_credits():
     Label(credits_window,text='Reference').grid(row=2, column=0)
     Label(credits_window,text='Image Color Extraction with Python in 4 Steps by Boriharn K').grid(row=3, column=0)
     link_label = Label(credits_window, text = 'https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9370d9216e',fg="blue", cursor="hand2", font=('Arial', 10, 'underline'))
-    link_label.grid(row=4, column=0);
     link_label.bind("<Button-1>", lambda e: webbrowser.open_new_tab("https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9370d9216e"))
+    link_label.grid(row=4, column=0);
+    
     credits_window.geometry(f"{link_label.winfo_reqwidth()}x{160}+{x}+{y}")
 
-credits_btn = Button(tk,text='Developer Credits',bg='white',fg='black',command= display_dev_credits).place(relx=0.5, rely=0.5, anchor="center")
+credits_label = Label(tk, text = 'Developer Credits', fg="black", cursor="hand2", font=('Arial', 10, 'underline'))
+credits_label.bind("<Button-1>", lambda e: display_dev_credits())
+credits_label.grid(row = 4, column=2)
 
 if __name__ == "__main__":
     tk.mainloop()
