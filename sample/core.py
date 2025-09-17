@@ -51,6 +51,8 @@ def open_color_picker():
 
 def extract_color_palette(bg_col):
     palette_file = browse_save_file()
+    if(palette_file == None):
+        return
     palette_file = str(palette_file)
     if img_path_entry.get() and palette_file:
         ext.extract(img_path_entry.get(), palette_file, background_color, tolerance_slider.get(), limit_slider.get())
@@ -65,12 +67,13 @@ Hovertip(img_path_entry, img_path_tip_msg)
 
 tolerance_label = Label(tk,text='Tolerance')
 tolerance_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
+tolerance_slider.set(12)
 tolerancee_tip_msg = 'Group colors to limit the output. 0 will group any color and 100 will group all colors into one.'
 Hovertip(tolerance_label, tolerancee_tip_msg)
 Hovertip(tolerance_slider, tolerancee_tip_msg)
 
 limit_label = Label(tk,text='limit')
-limit_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
+limit_slider = Scale(tk, orient = HORIZONTAL, from_ = 1, to = 100)
 limit_tip_msg = 'The number of extracted colors presented in the output.'
 Hovertip(limit_label, limit_tip_msg)
 Hovertip(limit_slider, limit_tip_msg)
