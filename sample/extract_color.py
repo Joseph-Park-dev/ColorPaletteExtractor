@@ -1,4 +1,5 @@
 import math
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -26,7 +27,7 @@ def color_to_df(input):
     df = pd.DataFrame(zip(df_color_up, df_percent), columns = ['c_code','occurence'])
     return df
 
-def extract(input_image, output_image, resize, bg_color, zoom):
+def extract(input_image, output_image, bg_color, tolerance, limit):
     #background
     bg = 'bg.png'
     fig, ax = plt.subplots(figsize=(192,108),dpi=10)
@@ -35,6 +36,7 @@ def extract(input_image, output_image, resize, bg_color, zoom):
     plt.close(fig)
     
     #resize
+    resize = 1000
     output_width = resize
     img = Image.open(input_image)
     if img.size[0] >= resize:
@@ -48,7 +50,7 @@ def extract(input_image, output_image, resize, bg_color, zoom):
     
     #crate dataframe
     img_url = resize_name
-    colors_x = extcolors.extract_from_path(img_url, tolerance = 12, limit = 12)
+    colors_x = extcolors.extract_from_path(img_url, tolerance, limit + 1)
     df_color = color_to_df(colors_x)
     
     #annotate text
@@ -67,7 +69,7 @@ def extract(input_image, output_image, resize, bg_color, zoom):
 
     #add image in the center of donut plot
     img = mpimg.imread(resize_name)
-    imagebox = OffsetImage(img, zoom=zoom)
+    imagebox = OffsetImage(img, zoom = True)
     ab = AnnotationBbox(imagebox, (0, 0))
     ax1.add_artist(ab)
     
@@ -83,7 +85,7 @@ def extract(input_image, output_image, resize, bg_color, zoom):
 
     for i in range (0, count):
         x = i % x_count
-        y = math.ceil(i / x_count)
+        y = math.floor(i / x_count)
         draw.rectangle([(x * box_width, y * box_width), (x * box_width + box_width, y * box_width + box_width)], list_color[i])
 
     palette.save(output_image)
@@ -107,4 +109,7 @@ def extract(input_image, output_image, resize, bg_color, zoom):
     bg = plt.imread('bg.png')
     plt.imshow(bg)       
     plt.tight_layout()
+
+    if os.path.exists(img_url):
+        os.remove(img_url)
     return plt.show()
