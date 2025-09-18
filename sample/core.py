@@ -68,7 +68,7 @@ Hovertip(img_path_entry, img_path_tip_msg)
 tolerance_label = Label(tk,text='Tolerance')
 tolerance_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
 tolerance_slider.set(12)
-tolerancee_tip_msg = 'Group colors to limit the output. 0 will group any color and 100 will group all colors into one.'
+tolerancee_tip_msg = 'Group colors to limit the output. 0 will not group any color and 100 will group all colors into one.'
 Hovertip(tolerance_label, tolerancee_tip_msg)
 Hovertip(tolerance_slider, tolerancee_tip_msg)
 
