@@ -12,9 +12,11 @@ If you have downloaded the .exe file, you can run it without installation.
 3. Press "Extract Color Palette" and enter a file name for the .png palette.
 4. The .png file will be displayed along with a color analysis. The saved file will be located in the directory you have set.
 
-## Reference 
-Image Color Extraction with Python in 4 Steps by Boriharn K <br>
-https://towardsdatascience.com/image-color-extraction-with-python-in-4-steps-8d9370d9216e/ 
+### Color Count?
+The number of extracted colors displayed in the palette. Colors with the largest proportions are shown first.
+
+### Background?
+Background color for the generated palette.
 
 ## Program's life
 ### 2025.09.16 (v.0.1.0 - Removed)
@@ -25,8 +27,13 @@ GUIs for setting values (tolerance & limit) were added.
 GUI alignment was revised for a better appearance.
 Bugs were fixed.
 
+### 2026.06.08 (v.0.2.0)
+"limit" was renamed to "Color Count" for better clarity.
+"extcolors" was removed from the project. PIL is now used for simplicity.
+Bugs were fixed and the program works better!
+
 ## Developer Contact
 This program was made by GooCat Studio as a utility to assist with video game development. <br>
 
 JungBae Park
-teamgoocat@gmail.com
+jbpark1654@gmail.com
