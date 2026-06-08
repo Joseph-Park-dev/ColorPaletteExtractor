@@ -6,10 +6,11 @@ from idlelib.tooltip import Hovertip
 import webbrowser
 
 import extract_color as ext
+import threading
 
 tk = Tk()
 tk.title('Color Palette Extractor')
-tk.geometry("500x200")
+tk.geometry("450x200")
 
 tk.update_idletasks() # Ensure window dimensions are updated
 width = tk.winfo_width()
@@ -55,7 +56,7 @@ def extract_color_palette(bg_col):
         return
     palette_file = str(palette_file)
     if img_path_entry.get() and palette_file:
-        ext.extract(img_path_entry.get(), palette_file, background_color, tolerance_slider.get(), limit_slider.get())
+        ext.extract(img_path_entry.get(), palette_file, bg_col, col_count_slider.get())
 
 img_path_label = Label(tk,text='Image Path')
 img_path_entry = Entry(tk, width = 40)
@@ -65,39 +66,28 @@ browse_file_btn = Button(tk,text='Browse...',bg='white',fg='black',command=lambd
 Hovertip(img_path_label, img_path_tip_msg)
 Hovertip(img_path_entry, img_path_tip_msg)
 
-tolerance_label = Label(tk,text='Tolerance')
-tolerance_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
-tolerance_slider.set(12)
-tolerancee_tip_msg = 'Group colors to limit the output. 0 will not group any color and 100 will group all colors into one.'
-Hovertip(tolerance_label, tolerancee_tip_msg)
-Hovertip(tolerance_slider, tolerancee_tip_msg)
-
-limit_label = Label(tk,text='limit')
-limit_slider = Scale(tk, orient = HORIZONTAL, from_ = 1, to = 100)
-limit_tip_msg = 'The number of extracted colors presented in the output.'
-Hovertip(limit_label, limit_tip_msg)
-Hovertip(limit_slider, limit_tip_msg)
+col_count_label = Label(tk,text='Color Count')
+col_count_slider = Scale(tk, orient = HORIZONTAL, from_ = 0, to = 100)
+col_count_slider.set(12)
+col_count_tip_msg = 'The number of colors extracted to the palette, ordered by largest proportion first.'
+Hovertip(col_count_label, col_count_tip_msg)
+Hovertip(col_count_slider, col_count_tip_msg)
 
 color_picker_btn = Button(tk,text='Background Color',bg='white',fg='black',command=lambda: open_color_picker())
 color_picker_tip_msg = 'Background color of the palette. Blank space will be filled with this color.'
 Hovertip(color_picker_btn, color_picker_tip_msg)
 
 generate_btn = Button(tk,text='Extract Color Palette',bg='white',fg='black',command= lambda: extract_color_palette(background_color))
-reminder = Label(tk, text = 'Reminder: The transparent area will be considered as black!')
 
 img_path_label.grid(row=0, column=0,)
 img_path_entry.grid(row=0,column=1)
 browse_file_btn.grid(row=0,column=2)
 
-tolerance_label.grid(row = 1, column = 0)
-tolerance_slider.grid(row=1, column = 1, sticky = "w")
+col_count_label.grid(row = 1, column = 0)
+col_count_slider.grid(row=1, column = 1, sticky = "w")
 
-limit_label.grid(row = 2, column = 0)
-limit_slider.grid(row=2, column = 1, sticky = "w")
-
-color_picker_btn.grid(row=2,column=1, sticky= "e")
-generate_btn.grid(row=4,column=1)
-reminder.grid(row = 3, column = 1)
+color_picker_btn.grid(row=1,column=2, sticky= "e")
+generate_btn.grid(row=5,column=1)
 
 
 def display_dev_credits():
