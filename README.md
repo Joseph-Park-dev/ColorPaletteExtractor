@@ -29,8 +29,8 @@ GUI alignment was revised for a better appearance.
 Bugs were fixed.
 
 ### 2026.06.08 (v.0.2.0)
-"limit" was renamed to "Color Count" for better clarity.
-"extcolors" was removed from the project. PIL is now used for simplicity.
+"limit" was renamed to "Color Count" for better clarity. <br>
+"extcolors" was removed from the project. PIL is now used for simplicity. <br>
 Bugs were fixed and the program works better!
 
 ## Developer Contact
