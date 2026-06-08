@@ -2,11 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import colorchooser
 from idlelib.tooltip import Hovertip
-
 import webbrowser
-
 import extract_color as ext
-import threading
 
 tk = Tk()
 tk.title('Color Palette Extractor')
